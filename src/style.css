@@ -1,0 +1,332 @@
+/* ============================================
+   DESIGN TOKENS — Variables centralizadas
+   ============================================ */
+:root {
+  /* Colores — Paleta vibrante con contraste */
+  --color-bg: #0f0f23;
+  --color-bg-elevated: #1a1a2e;
+  --color-surface: #16213e;
+  --color-surface-hover: #1f3460;
+  
+  --color-primary: #e94560;
+  --color-primary-light: #ff6b6b;
+  --color-primary-glow: rgba(233, 69, 96, 0.4);
+  
+  --color-accent: #0f3460;
+  --color-accent-bright: #00d9ff;
+  --color-accent-glow: rgba(0, 217, 255, 0.35);
+  
+  --color-text: #eaeaea;
+  --color-text-muted: #a0a0a0;
+  --color-text-inverse: #0f0f23;
+  
+  --color-success: #00d26a;
+  --color-warning: #ffc107;
+  --color-error: #ff4757;
+  
+  /* Tipografía */
+  --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 3rem;
+  --text-4xl: 4rem;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-wide: 0.08em;
+  
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  
+  /* Bordes y radios */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
+  --shadow-glow-primary: 0 0 40px var(--color-primary-glow);
+  --shadow-glow-accent: 0 0 40px var(--color-accent-glow);
+  
+  /* Transiciones */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   BASE & RESET
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, var(--color-primary-glow), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, var(--color-accent-glow), transparent),
+    radial-gradient(ellipse 40% 30% at 0% 80%, rgba(233, 69, 96, 0.15), transparent);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+/* ============================================
+   COMPONENT — Counter Card
+   ============================================ */
+.counter {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-12);
+  background: linear-gradient(145deg, var(--color-bg-elevated) 0%, var(--color-surface) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  box-shadow: 
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto glassmorphism sutil en bordes */
+.counter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent, rgba(0,217,255,0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ============================================
+   COMPONENT — Título
+   ============================================ */
+.counter__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-10);
+}
+
+/* ============================================
+   COMPONENT — Display del valor
+   ============================================ */
+.counter__display {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto var(--space-10);
+  background: linear-gradient(145deg, var(--color-surface) 0%, var(--color-accent) 100%);
+  border-radius: 50%;
+  border: 2px solid rgba(233, 69, 96, 0.3);
+  box-shadow: 
+    var(--shadow-md),
+    0 0 0 1px rgba(0, 0, 0, 0.2),
+    inset 0 0 60px rgba(233, 69, 96, 0.1);
+}
+
+.counter__value {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-light);
+  text-shadow: 0 0 30px var(--color-primary-glow);
+  line-height: 1;
+}
+
+/* Animación sutil del display */
+.counter__display {
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,0,0,0.2), inset 0 0 60px rgba(233, 69, 96, 0.1); }
+  50% { box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,0,0,0.2), inset 0 0 80px rgba(233, 69, 96, 0.15); }
+}
+
+/* ============================================
+   COMPONENT — Grupo de botones
+   ============================================ */
+.counter__actions {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   COMPONENT — Botones
+   ============================================ */
+.counter__btn {
+  --btn-bg: var(--color-surface);
+  --btn-border: rgba(255, 255, 255, 0.1);
+  --btn-color: var(--color-text);
+  --btn-hover-bg: var(--color-surface-hover);
+  --btn-active-scale: 0.97;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 140px;
+  padding: var(--space-4) var(--space-6);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--btn-color);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: 
+    transform var(--transition-fast),
+    background var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.counter__btn:hover {
+  background: var(--btn-hover-bg);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-md);
+}
+
+.counter__btn:active {
+  transform: scale(var(--btn-active-scale));
+}
+
+.counter__btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Variante — Botón Sumar */
+.counter__btn--add {
+  --btn-bg: linear-gradient(135deg, var(--color-primary) 0%, #ff6b6b 100%);
+  --btn-border: transparent;
+  --btn-color: white;
+  --btn-hover-bg: linear-gradient(135deg, var(--color-primary-light) 0%, #ff8787 100%);
+}
+
+.counter__btn--add:hover {
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* Variante — Botón Restar */
+.counter__btn--subtract {
+  --btn-bg: transparent;
+  --btn-border: rgba(0, 217, 255, 0.4);
+  --btn-color: var(--color-accent-bright);
+  --btn-hover-bg: rgba(0, 217, 255, 0.1);
+}
+
+.counter__btn--subtract:hover {
+  box-shadow: var(--shadow-glow-accent);
+}
+
+/* ============================================
+   UTILIDADES — Animación de entrada
+   ============================================ */
+.counter {
+  animation: slide-up 0.6s var(--transition-bounce) both;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+  :root {
+    --text-4xl: 3rem;
+    --text-2xl: 1.75rem;
+  }
+  
+  .counter {
+    padding: var(--space-8);
+  }
+  
+  .counter__display {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .counter__actions {
+    flex-direction: column;
+  }
+  
+  .counter__btn {
+    width: 100%;
+    min-width: unset;
+  }
+}
